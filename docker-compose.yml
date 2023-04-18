@@ -1,0 +1,32 @@
+version: '3.1'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    networks:
+      - network-1
+  
+  adminer:
+    image: adminer:4.8.1
+    ports: 
+      - "8080:8080"
+    networks:
+      - network-1
+
+volumes:
+  db-data:
+
+networks:
+  network-1:
+    driver: bridge
+
+
+    
