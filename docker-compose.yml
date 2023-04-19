@@ -11,11 +11,14 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: user
       MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "2000:2000"
     networks:
       - network-1
   
   adminer:
     image: adminer:4.8.1
+    restart: always
     ports: 
       - "8080:8080"
     networks:
