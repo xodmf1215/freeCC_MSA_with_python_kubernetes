@@ -53,4 +53,21 @@ if __name__ == "__Main__": #when we run this file
     print(__name__)
     server.run(host="0.0.0.0", port=5000) #docker container에서 돌리면 이 서버는 자신의 IP를 받게되므로, 모든 IP에게서 듣는걸로 설정
     print("auth server is running on port : 5000")
+
+@server.route("/validate",method=["POST"])
+def validate():
+    encoded_jwt = request.headers["Authorization"]
+
+    if not encoded_jwt:
+        return "missing credentials", 401
     
+    encoded_jwt = encoded_jwt.split(" ")[1]
+
+    try:
+        decoded = jwt.decode(
+            encoded_jwt, os.environ.get("JWT_SECRET"), algorithm=["HS256"]
+        )
+    except:
+        return "not authorized", 401
+    
+    return decoded
