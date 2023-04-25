@@ -1,4 +1,6 @@
-import jwt, datetime, os
+import datetime
+import os
+import jwt
 from flask import Flask, request
 from flask_mysqldb import MySQL
 
@@ -12,8 +14,11 @@ server.config["MYSQL_PASSWORD"] = os.environ.get("MYSQL_PASSWORD")
 server.config["MYSQL_DB"] = os.environ.get("MYSQL_DB")
 server.config["MYSQL_PORT"] = os.environ.get("MYSQL_PORT")
 
-@server.route("/login", mothods=["POST"])
+@server.route("/login", methods=["POST"])
 def login():
+    """
+    hello
+    """
     auth = request.authorization
     if not auth:
         return "missing credentials", 401
@@ -37,6 +42,9 @@ def login():
         return "invalid credentials", 401
     
 def createJWT(username, secret, authz):
+    """
+    hello
+    """
     return jwt.encode(
         {
             "username": username,
@@ -49,13 +57,16 @@ def createJWT(username, secret, authz):
         algorithm="HS256"
     )
 
-if __name__ == "__Main__": #when we run this file
+if __name__ == "__main__": #when we run this file
     print(__name__)
     server.run(host="0.0.0.0", port=5000) #docker container에서 돌리면 이 서버는 자신의 IP를 받게되므로, 모든 IP에게서 듣는걸로 설정
     print("auth server is running on port : 5000")
 
-@server.route("/validate",method=["POST"])
+@server.route("/validate",methods=["POST"])
 def validate():
+    """
+    hello
+    """
     encoded_jwt = request.headers["Authorization"]
 
     if not encoded_jwt:
@@ -67,7 +78,7 @@ def validate():
         decoded = jwt.decode(
             encoded_jwt, os.environ.get("JWT_SECRET"), algorithm=["HS256"]
         )
-    except:
+    except Exception:
         return "not authorized", 401
     
     return decoded

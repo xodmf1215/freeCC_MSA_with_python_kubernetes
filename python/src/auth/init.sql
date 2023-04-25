@@ -5,6 +5,10 @@ DROP USER 'auth_user'@'localhost';
 
 CREATE DATABASE auth;
 
+/*
+GRANT CREATE USER ON *.* TO 'root'@'%';
+*/
+
 CREATE USER 'auth_user'@'%' IDENTIFIED BY '';
 SET PASSWORD FOR 'auth_user'@'%' = 'Aauth123';
 
@@ -12,7 +16,8 @@ SET PASSWORD FOR 'auth_user'@'%' = 'Aauth123';
 GRANT ALL PRIVILEGES ON auth.* TO 'auth_user'@'localhost';
 */
 
-GRANT SELECT, INSERT, UPDATE ON 'auth'.* TO 'auth_user'@'%';
+GRANT SELECT, INSERT, UPDATE ON auth.* TO 'auth_user'@'%';
+
 
 USE auth;
 
