@@ -17,7 +17,7 @@ fs = gridfs.GridFS(mongo.db)
 connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
 channel = connection.channel( )
 
-@server.route("/login", mothod =["POST"])
+@server.route("/login", methods = ["POST"])
 def login():
     token, err = access.login(request)
 
@@ -26,7 +26,7 @@ def login():
     else:
         return err
 
-@server.route("/upload", method=["POST"])
+@server.route("/upload", methods = ["POST"])
 def upload():
     access, err = validate.token(request)
 
@@ -46,7 +46,7 @@ def upload():
     else:
         return "not authorized", 401
     
-@server.route("/download", methods=["GET"])
+@server.route("/download", methods = ["GET"])
 def download():
     pass
 
